@@ -24,7 +24,7 @@ export async function getProjectsHandler(
   next: NextFunction,
 ) {
   try {
-    const response = await getProjects(req.user?._id?.toString()!);
+    const response = await getProjects(req.user?._id!);
 
     res.json(response);
   } catch (e: any) {
@@ -33,12 +33,12 @@ export async function getProjectsHandler(
 }
 
 export async function getProjectHandler(
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    const response = await getProject(req.params.id);
+    const response = await getProject(req.user?._id!, req.params.projectId);
 
     res.json(response);
   } catch (e: any) {
@@ -47,13 +47,13 @@ export async function getProjectHandler(
 }
 
 export async function updateProjectHandler(
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction,
 ) {
   try {
     const body: Partial<IProject> = req.body
-    const response = await updateProject(req.params.id, body);
+    const response = await updateProject(req.user?._id!, req.params.projectId, body);
     res.json(response);
 
   } catch (e: any) {
@@ -62,12 +62,12 @@ export async function updateProjectHandler(
 }
 
 export async function deleteProjectHandler(
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    const response = await deleteProject(req.params.id);
+    const response = await deleteProject(req.user?._id!, req.params.projectId);
 
     res.json(response);
   } catch (e: any) {

@@ -13,10 +13,10 @@ projectRouter.post("/projects", validateRequest(projectSchema), ProjectControlle
 
 projectRouter.get("/projects", ProjectController.getProjectsHandler);
 
-projectRouter.get("/projects/:id", isProjectOwner, ProjectController.getProjectHandler);
+projectRouter.get("/projects/:projectId", ProjectController.getProjectHandler);
 
-projectRouter.patch("/projects/:id", isProjectOwner, ProjectController.updateProjectHandler);
+projectRouter.patch("/projects/:projectId", ProjectController.updateProjectHandler);
 
-projectRouter.delete("/projects/:id", isProjectOwner, ProjectController.deleteProjectHandler);
+projectRouter.delete("/projects/:projectId", ProjectController.deleteProjectHandler);
 
 export default projectRouter;

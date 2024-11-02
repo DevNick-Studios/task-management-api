@@ -9,14 +9,14 @@ const taskRouter: Router = express.Router();
 // Every access must be authenticated
 taskRouter.use(isAuthenticated)
 
-taskRouter.post("/tasks", validateRequest(taskSchema), TaskController.createTaskHandler);
+taskRouter.post("/projects/:projectId/tasks", validateRequest(taskSchema), isProjectOwner, TaskController.createTaskHandler);
 
-taskRouter.get("/tasks", TaskController.getTasksHandler);
+taskRouter.get("/projects/:projectId/tasks/", isProjectOwner, TaskController.getTasksHandler);
 
-taskRouter.get("/tasks/:id", isProjectOwner, TaskController.getTaskHandler);
+taskRouter.get("/projects/:projectId/tasks/:taskId", isProjectOwner, TaskController.getTaskHandler);
 
-taskRouter.patch("/tasks/:id", isProjectOwner, TaskController.updateTaskHandler);
+taskRouter.patch("/projects/:projectId/tasks/:taskId", isProjectOwner, TaskController.updateTaskHandler);
 
-taskRouter.delete("/tasks/:id", isProjectOwner, TaskController.deleteTaskHandler);
+taskRouter.delete("/projects/:projectId/tasks/:taskId", isProjectOwner, TaskController.deleteTaskHandler);
 
 export default taskRouter;

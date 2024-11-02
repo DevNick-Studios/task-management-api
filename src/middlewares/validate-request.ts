@@ -12,6 +12,7 @@ const validateRequest =
       });
       next();
     } catch (e: any) {
+      console.log({e: e.errors })
         res.status(400).json({
             success: false,
             message: e?.errors && e.errors.length > 0

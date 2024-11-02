@@ -9,7 +9,7 @@ export async function createTaskHandler(
 ) {
   try {
     const body: ITask = req.body
-    const response = await createTask(body);
+    const response = await createTask({ ...body, project: req.params.projectId });
 
     res.json(response);
   } catch (e: any) {
@@ -23,7 +23,7 @@ export async function getTasksHandler(
   next: NextFunction,
 ) {
   try {
-    const response = await getTasks(req.params.id);
+    const response = await getTasks(req.params.projectId);
 
     res.json(response);
   } catch (e: any) {
@@ -37,7 +37,7 @@ export async function getTaskHandler(
   next: NextFunction,
 ) {
   try {
-    const response = await getTask(req.params.id);
+    const response = await getTask(req.params.projectId, req.params.taskId);
 
     res.json(response);
   } catch (e: any) {
@@ -52,7 +52,7 @@ export async function updateTaskHandler(
 ) {
   try {
     const body: Partial<ITask> = req.body
-    const response = await updateTask(req.params.id, body);
+    const response = await updateTask(req.params.projectId, req.params.taskId, body);
     res.json(response);
 
   } catch (e: any) {
@@ -66,7 +66,7 @@ export async function deleteTaskHandler(
   next: NextFunction,
 ) {
   try {
-    const response = await deleteTask(req.params.id);
+    const response = await deleteTask(req.params.projectId, req.params.taskId);
 
     res.json(response);
   } catch (e: any) {

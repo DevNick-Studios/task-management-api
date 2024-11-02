@@ -28,7 +28,7 @@ export const isAuthenticated = async  (req: Request, res: Response, next: NextFu
 
 export const isCurrentUser = async  (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (req.user._id?.toString() === req.params.id) {
+        if (req.user._id?.toString() === req.params.userId) {
             next()
         } else {
             throw new CustomError('Unauthorized access: You are not allowed to perform this action', 403)
@@ -40,7 +40,7 @@ export const isCurrentUser = async  (req: Request, res: Response, next: NextFunc
 
 export const isProjectOwner = async  (req: Request, res: Response, next: NextFunction) => {
     try {
-        const project = await Project.findById(req.params.id).lean()
+        const project = await Project.findById(req.params.projectId).lean()
 
         if (!project) throw new CustomError('Project does not exist', 404)
 
