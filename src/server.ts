@@ -1,16 +1,20 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import { setupApp } from './app'
+import env from './configs'
+// import adminRoutes from './modules/admin/admin.routes'
 
-dotenv.config();
+init()
 
+async function init() {
+    try {
+        const app = setupApp(
+            // adminRoutes,
+        )
+        app.listen(env.PORT, () => {
+            console.log(`Task App Listening on Port ${env.PORT}`)
+        })
+    } catch (error) {
+        console.error(`An error occurred: ${JSON.stringify(error)}`)
+        process.exit(1)
+    }
+}
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-  res.send('Express + TypeScript Server');
-});
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});

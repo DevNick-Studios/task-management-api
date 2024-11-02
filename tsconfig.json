@@ -4,8 +4,9 @@
     "module": "commonjs",                       
     "baseUrl": "./",     
     "paths": {
-      "@services/*": ["src/services/*"],
-      "@utils/*": ["src/utils/*"]
+      "@configs/*": ["src/configs/"],
+      "@services/*": ["src/services/"],
+      "@utils/*": ["src/utils/"]
     },                                    
     "outDir": "./dist",                                   
     "esModuleInterop": true,                    
