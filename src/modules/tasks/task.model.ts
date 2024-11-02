@@ -22,6 +22,10 @@ const taskSchema: Schema<ITask> = new Schema<ITask>({
         ref: Project,
         required: true,
     },
+    deleted: { 
+        type: Boolean, 
+        default: false 
+    },
     created_at: {
         type: Date,
         required: true,
