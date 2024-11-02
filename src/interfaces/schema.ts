@@ -13,6 +13,7 @@ export interface IProject {
     name: string;
     description?: string;
     owner: Types.ObjectId;
+    deleted: Boolean;
     created_at: Date;
 }
 
@@ -23,6 +24,7 @@ export interface ITask {
     status: StatusEnum, 
     due_date?: Date;
     project: Types.ObjectId;
+    deleted: Boolean;
     created_at: Date;
 }
 

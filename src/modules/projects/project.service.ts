@@ -9,7 +9,7 @@ export const createProject = async (data: RequiredFields<IProject, 'owner'>) => 
 }
 
 export const getProjects = async (owner: string) => {
-    const projects = await Project.find({ owner }).lean().exec()
+    const projects = await Project.find({ owner, deleted: false }).lean().exec()
 
     if (!projects) {
         throw new CustomError('Projects not found')
@@ -21,8 +21,9 @@ export const getProjects = async (owner: string) => {
 export const getProject = async (owner: string, projectId: string) => {
     const project = await Project.findOne({
         owner,
-        _id: projectId
-    }).exec()
+        _id: projectId,
+        deleted: false
+    }).lean().exec()
 
     if (!project) {
         throw new CustomError('Project not found for this user', 404)
@@ -34,7 +35,8 @@ export const getProject = async (owner: string, projectId: string) => {
 export const updateProject = async (owner: string, projectId: string, data: Partial<IProject>) => {
     const project = await Project.findOne({
         owner,
-        _id: projectId
+        _id: projectId,
+        deleted: false
     }).exec()
 
     if (!project) {
@@ -49,13 +51,14 @@ export const updateProject = async (owner: string, projectId: string, data: Part
 export const deleteProject = async (owner: string, projectId: string) => {
     const project = await Project.findOne({
         owner,
-        _id: projectId
+        _id: projectId,
+        deleted: false
     }).exec()
 
     if (!project) {
         throw new CustomError('Project not found for this user', 404)
     }
-    
 
-    return project.deleteOne()
+    // soft delete
+    return project.updateOne({ deleted: true });
 }

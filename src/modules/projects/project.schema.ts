@@ -14,4 +14,3 @@ export const projectSchema = object({
 
 export type IProject = TypeOf<typeof projectSchema>['body']
 
-

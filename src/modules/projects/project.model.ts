@@ -15,6 +15,10 @@ const projectSchema: Schema<IProject> = new Schema<IProject>({
         ref: User,
         required: true,
     },
+    deleted: { 
+        type: Boolean, 
+        default: false 
+    },
     created_at: {
         type: Date,
         required: true,
