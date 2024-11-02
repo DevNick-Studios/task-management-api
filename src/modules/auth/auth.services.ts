@@ -1,15 +1,12 @@
 import { User } from "../users/user.model"
 import * as bcrypt from 'bcrypt';
-import { createToken } from "src/utils";
+import { createToken } from '../../utils/index';
 import { ILogin, IRegister } from "./auth.schema";
+import CustomError from "../../utils/CustomError";
+import { createUser, validateCreateUser } from "../users/user.services";
 
 export const register = async (userData: IRegister) => {
-    const duplicateEmail = await User.findOne({
-        email: userData.email,
-    }).lean().exec();
-    if (duplicateEmail) {
-        throw new Error('Email Already in use');
-    }
+    await validateCreateUser(userData)
 
     const hashedPwd = await bcrypt.hash(userData.password, 10);
     const baseData = {
@@ -17,10 +14,7 @@ export const register = async (userData: IRegister) => {
         password: hashedPwd,
     };
 
-    const newUser = new User(baseData);
-
-    return await newUser.save();
-
+    return createUser(baseData);
 }
 
 export const login = async (userData: ILogin) => {
@@ -29,15 +23,15 @@ export const login = async (userData: ILogin) => {
     }).lean().exec();
 
     if (!user) {
-        throw new Error('User does not exist');
+        throw new CustomError('User does not exist');
     }
 
     const { password, ...data } = user
 
     const match = await bcrypt.compare(userData.password, password);
-    if (!match) throw new Error('Username or Password Incorrect')
+    if (!match) throw new CustomError('Username or Password Incorrect')
 
-    const token = await createToken({ id: user._id, role: user.username })
+    const token = await createToken({ id: user._id })
 
     return { user: data, token }
 

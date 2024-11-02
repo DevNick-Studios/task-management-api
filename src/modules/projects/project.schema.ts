@@ -8,7 +8,7 @@ export const projectSchema = object({
     description: string().optional(),
     owner: string({
       required_error: 'Owner is required',
-    }),
+    }).optional(),
   })
 });
 

@@ -13,6 +13,6 @@ export default function ErrorMiddleware (app: Application) {
         const status = err.status || 500
         const message = err.message || err
         console.log('error', `status: ${status}, message: ${message}`)
-        res.status(status).json({ message })
+        res.status(status).json({ success: false, message })
     })
 }

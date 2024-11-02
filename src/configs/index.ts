@@ -16,6 +16,7 @@ const envSchema = z.object({
         .default('development'),
     PORT: z.string().transform(Number).default('3000'),
     JWT_SEC: z.string(),
+    DATABASE_URI: z.string(),
 })
 
 // Parse and validate the environment variables

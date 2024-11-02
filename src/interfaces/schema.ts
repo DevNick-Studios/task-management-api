@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 
 export interface IUser {
+    _id?: string;
     username: string;
     email: string;
     password: string;
@@ -8,6 +9,7 @@ export interface IUser {
 }
 
 export interface IProject {
+    _id?: string;
     name: string;
     description?: string;
     owner: Types.ObjectId;
@@ -15,6 +17,7 @@ export interface IProject {
 }
 
 export interface ITask {
+    _id?: string;
     title: string;
     description?: string;
     status: StatusEnum, 

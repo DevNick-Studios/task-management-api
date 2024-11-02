@@ -10,8 +10,8 @@ export async function registerUserHandler(
   try {
     const body: IRegister = req.body
     const user = await register(body);
-
-    return res.json(user);
+    
+    res.json(user);
   } catch (e: any) {
     return next(e)
   }
@@ -25,7 +25,8 @@ export async function loginHandler(
   try {
     const body: ILogin = req.body
     const user = await login(body);
-    return res.json(user);
+    
+    res.json(user);
   } catch (e: any) {
     console.error(e);
     return next(e)

@@ -2,7 +2,6 @@ import type { Request, Response, Express } from 'express'
 import express, { Router } from 'express'
 import ErrorMiddleware from './middlewares/errors.middleware';
 import PreRouteMiddleware from './middlewares/pre-route.middleware';
-import projectRouter from './modules/projects/project.route';
 
 
 export const setupApp = (...routes: Router[]) => {
@@ -15,9 +14,7 @@ export const setupApp = (...routes: Router[]) => {
         res.status(200).json({ message: 'pong' })
     })
 
-    app.use(projectRouter);
-
-    
+    app.use(routes);
 
     // handle errors && 404
     ErrorMiddleware(app)

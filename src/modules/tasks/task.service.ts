@@ -1,7 +1,8 @@
+import { RequiredFields } from "src/interfaces/helper";
 import { Task } from "./task.model"
 import { ITask } from "./task.schema"
 
-export const createTask = async (data: ITask) => {
+export const createTask = async (data: RequiredFields<ITask, 'project'>) => {
     const task = new Task(data);
     return task.save();
 }

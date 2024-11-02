@@ -12,12 +12,11 @@ const validateRequest =
       });
       next();
     } catch (e: any) {
-        return res.status(400).json({
+        res.status(400).json({
             success: false,
             message: e?.errors && e.errors.length > 0
             ? e.errors[0]?.message
             : 'Unknown error',
-            error: e?.errors,
         });
         
     }

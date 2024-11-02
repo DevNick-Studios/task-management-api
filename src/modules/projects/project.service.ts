@@ -1,7 +1,8 @@
+import { RequiredFields } from "src/interfaces/helper";
 import { Project } from "./project.model"
 import { IProject } from "./project.schema"
 
-export const createProject = async (data: IProject) => {
+export const createProject = async (data: RequiredFields<IProject, 'owner'>) => {
     const project = new Project(data);
     return project.save();
 }
@@ -18,6 +19,7 @@ export const getProjects = async (owner: string) => {
 
 export const getProject = async (projectId: string) => {
     const project = await Project.findById(projectId).lean().exec()
+    console.log({ project })
 
     if (!project) {
         throw new Error('Project not found')

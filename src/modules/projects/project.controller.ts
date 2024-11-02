@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import { IProject } from "./project.schema";
 import { createProject, deleteProject, getProject, getProjects, updateProject } from "./project.service";
+import { RequestWithUser } from "src/interfaces/helper";
 
 export async function createProjectHandler(
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction,
 ) {
   try {
     const body: IProject = req.body
-    const response = await createProject(body);
+    const response = await createProject({ ...body, owner: req.user?._id! });
 
     res.json(response);
   } catch (e: any) {
@@ -18,12 +19,12 @@ export async function createProjectHandler(
 }
 
 export async function getProjectsHandler(
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    const response = await getProjects(req.params.id);
+    const response = await getProjects(req.user?._id?.toString()!);
 
     res.json(response);
   } catch (e: any) {

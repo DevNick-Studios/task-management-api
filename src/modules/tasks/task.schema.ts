@@ -1,4 +1,4 @@
-import { StatusEnum } from 'src/interfaces/schema';
+import { StatusEnum } from '../../interfaces/schema';
 import { date, object, string, TypeOf, nativeEnum } from 'zod';
 
 export const taskSchema = object({
