@@ -7,7 +7,7 @@ init()
 async function init() {
     try {
         connectToDatabase(() => {
-            app.listen(env.PORT, () => {
+            app.listen(process.env.PORT || env.PORT || 3000, () => {
                 console.log(`Task App Listening on Port ${env.PORT}`)
             })
         });
