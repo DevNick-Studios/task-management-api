@@ -1,8 +1,8 @@
-import express, { Application } from 'express'
+import express, { type Express } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 
-export default function PreRouteMiddleware (app: Application) {
+export default function PreRouteMiddleware (app: Express) {
     app.use(cors());
     app.use(express.urlencoded({ extended: false })) // parses form submissions
     app.use(express.json()) // parses json

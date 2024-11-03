@@ -12,7 +12,7 @@ export async function createProjectHandler(
     const body: IProject = req.body
     const response = await createProject({ ...body, owner: req.user?._id! });
 
-    res.json(response);
+    res.status(201).json(response);
   } catch (e: any) {
     return next(e)
   }
@@ -26,7 +26,7 @@ export async function getProjectsHandler(
   try {
     const response = await getProjects(req.user?._id!);
 
-    res.json(response);
+    res.status(200).json(response);
   } catch (e: any) {
     return next(e)
   }
@@ -40,7 +40,7 @@ export async function getProjectHandler(
   try {
     const response = await getProject(req.user?._id!, req.params.projectId);
 
-    res.json(response);
+    res.status(200).json(response);
   } catch (e: any) {
     return next(e)
   }
@@ -54,7 +54,7 @@ export async function updateProjectHandler(
   try {
     const body: Partial<IProject> = req.body
     const response = await updateProject(req.user?._id!, req.params.projectId, body);
-    res.json(response);
+    res.status(200).json(response);
 
   } catch (e: any) {
     return next(e)
@@ -69,7 +69,7 @@ export async function deleteProjectHandler(
   try {
     const response = await deleteProject(req.user?._id!, req.params.projectId);
 
-    res.json(response);
+    res.status(200).json(response);
   } catch (e: any) {
     return next(e)
   }

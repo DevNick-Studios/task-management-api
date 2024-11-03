@@ -29,7 +29,7 @@ export const login = async (userData: ILogin) => {
     const { password, ...data } = user
 
     const match = await bcrypt.compare(userData.password, password);
-    if (!match) throw new CustomError('Username or Password Incorrect')
+    if (!match) throw new CustomError('Email or Password Incorrect')
 
     const token = await createToken({ id: user._id })
 
